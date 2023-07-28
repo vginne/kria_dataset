@@ -1,0 +1,29 @@
+from PIL import Image
+import os
+
+# Define the input and output folders
+input_folder = '/home/vginne/detection/Data/kria_yolo_L2/kria_yolo_L2/test/images'
+output_folder = '/home/vginne/detection/Data/kria_yolo_L2/kria_yolo_L2/test/images_1'
+
+# Create the output folder if it doesn't exist
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+# Loop through all files in the input folder
+for filename in os.listdir(input_folder):
+    # Check if the file is an image
+    if filename.endswith(('.jpg', '.jpeg', '.png', '.gif')):
+        # Open the image
+        image_path = os.path.join(input_folder, filename)
+        image = Image.open(image_path)
+        
+        # Resize the image
+        resized_image = image.resize((512, 427))
+        
+        # Save the resized image to the output folder
+        output_path = os.path.join(output_folder, filename)
+        resized_image.save(output_path)
+
+        print(f"Resized and saved: {output_path}")
+
+print("All images resized and saved.")
